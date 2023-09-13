@@ -24,8 +24,10 @@ const userSchema = new mongoose.Schema(
       Select: true, // determine whether this password field is included while queriying the user (no need if the value is true but I put it)
     },
     location: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Location",
+      type: String,
+      trim: true,
+      lowercase: true,
+      default: "",
     },
   },
   { timestamps: true }

@@ -29,7 +29,7 @@ const login = async (req, res) => {
   );
 
   res.setHeader("Authorization", `Bearer ${token}`);
-  res.status(200).json({ token: token, session: session });
+  res.status(200).json({ token: token });
 };
 
 // New User Registration Controller

@@ -5,11 +5,13 @@ const db = require("./Config/db");
 require("dotenv").config();
 
 const authRoutes = require("./Routes/auth");
+const locationRoutes = require("./Routes/location");
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/auth", authRoutes);
+app.use("/location", locationRoutes);
 
 const port = process.env.PORT || 3002;
 
