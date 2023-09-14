@@ -7,7 +7,6 @@ const fetchWeather = async (location) => {
       `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${process.env.API_KEY}&units=metric`
     );
     const weatherData = response.data;
-    console.log(weatherData);
     return weatherData;
   } catch (error) {
     throw new Error(`Error fetching weather data: ${error.message}`);
