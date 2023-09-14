@@ -68,6 +68,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       validate: {
+        //a Schema level validation of email pattern
         validator: function (value) {
           return /\S+@\S+\.\S+/.test(value);
         },

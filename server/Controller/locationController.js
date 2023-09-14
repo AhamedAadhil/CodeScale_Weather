@@ -6,13 +6,15 @@ const cron = require("node-cron");
 const PDFDocument = require("pdfkit");
 require("dotenv").config();
 
+//To Update the Weather Location
 const updateLocation = async (req, res) => {
-  const { location } = req.body;
-  const { id } = req.user;
+  const { location } = req.body; //user will provide this location data through the body
+  const { id } = req.user; // get the id of the user by the help of authentication middleware
 
   try {
-    const weatherData = await fetchWeather(location);
+    const weatherData = await fetchWeather(location); //get the api response from openweathermap API
     const currentUser = await User.findByIdAndUpdate(
+      //update the user's location and weather info in DB
       id,
       { location: location, weather: weatherData },
       { new: true }
@@ -22,11 +24,12 @@ const updateLocation = async (req, res) => {
     }
 
     currentUser.weatherHistory.push({
+      // push the latest weather info into the weatherHistory array of the specific user
       date: new Date(),
       weatherData: weatherData,
     });
 
-    await currentUser.save();
+    await currentUser.save(); // again save the user
 
     // Create the PDF and obtain the pdfBuffer
     const pdfBuffer = await createPDF(weatherData);
@@ -44,6 +47,7 @@ const updateLocation = async (req, res) => {
       }
     });
 
+    // if all done, a success reply will be send as a response
     res.status(200).json({
       message: "Location and Weather updated successfully",
       user: currentUser,
@@ -54,11 +58,12 @@ const updateLocation = async (req, res) => {
   }
 };
 
+//To get the weather data by Date
 const getLocationByDate = async (req, res) => {
-  const { date } = req.body;
+  const { date } = req.body; // get the date from user through the body
   const userId = req.user.id;
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId); // get the current user from DB
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -66,7 +71,7 @@ const getLocationByDate = async (req, res) => {
 
     // Find weather data by date
     const weatherEntry = user.weatherHistory.find((entry) => {
-      // Convert both dates to strings to ensure accurate comparison
+      // Convert dates to strings to ensure accurate comparison
       return entry.date.toISOString().split("T")[0] === date;
     });
 

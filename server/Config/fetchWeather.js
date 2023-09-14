@@ -1,6 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
 
+//fetch the weather info based on the latest location of the user
 const fetchWeather = async (location) => {
   try {
     const response = await axios.get(

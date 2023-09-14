@@ -5,8 +5,8 @@ const Mail = async (receiver, pdfData) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
-    port: 587, //465
-    secure: false, //false
+    port: 587,
+    secure: false,
     logger: true,
     debug: true,
     secureConnection: false,

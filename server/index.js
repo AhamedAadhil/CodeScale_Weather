@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("./Config/db");
 require("dotenv").config();
 
+//Seperate Routes for auth and location,weather
 const authRoutes = require("./Routes/auth");
 const locationRoutes = require("./Routes/location");
 
