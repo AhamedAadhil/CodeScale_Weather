@@ -3,16 +3,24 @@
   "builds": [
     {
       "src": "index.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["db.js"]
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
+      "src": "/auth/(.*)",
+      "dest": "index.js"
+    },
+    {
+      "src": "/location/(.*)",
+      "dest": "index.js"
+    },
+    {
       "src": "/(.*)",
       "dest": "index.js"
     }
-  ]
+  ],
+  "env": {
+    "PORT": 3002
+  }
 }
